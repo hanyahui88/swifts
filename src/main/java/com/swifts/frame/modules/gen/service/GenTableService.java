@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2014 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2015-2016 <a href="https://github.com/hanyahui88/swifts">swifts</a> All rights reserved.
  */
 package com.swifts.frame.modules.gen.service;
 
@@ -64,7 +64,7 @@ public class GenTableService extends BaseService {
 	
 	/**
 	 * 验证表名是否可用，如果已存在，则返回false
-	 * @param genTable
+	 * @param tableName
 	 * @return
 	 */
 	public boolean checkTableName(String tableName){
@@ -162,7 +162,9 @@ public class GenTableService extends BaseService {
 	@Transactional(readOnly = false)
 	public void delete(GenTable genTable) {
 		genTableDao.delete(genTable);
-		genTableColumnDao.deleteByGenTableId(genTable.getId());
+		GenTableColumn genTableColumn=new GenTableColumn();
+		genTableColumn.setId(genTable.getId());
+		genTableColumnDao.deleteByGenTableId(genTableColumn);
 	}
 	
 }

@@ -143,7 +143,7 @@
 					<a class="no_border"  href="${ctx}/index-${site.id}${fns:getUrlSuffix()}" >查看更多</a>
 				</div>
 				<div class="seemore" style="background: none repeat scroll 0 0 #5BB75B;">
-					<a class="no_border" style="color:#FFFFFF;" href="weixin://addfriend/thinkgem" onclick="men_pho_cli2()">关注公众账号</a>
+					<a class="no_border" style="color:#FFFFFF;" href="weixin://addfriend/admin" onclick="men_pho_cli2()">关注公众账号</a>
 				</div>
 				<div class="zf_wrapper_001"> 
               		<div id="gallery">

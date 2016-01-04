@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2014 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2015-2016 <a href="https://github.com/hanyahui88/swifts">swifts</a> All rights reserved.
  */
 package com.swifts.frame.modules.cms.entity;
 
@@ -132,7 +132,7 @@ public class Site extends DataEntity<Site> {
    	public static final String TPL_BASE = "/WEB-INF/views/modules/cms/front/themes";
 
     /**
-   	 * 获得模板方案路径。如：/WEB-INF/views/modules/cms/front/themes/jeesite
+   	 * 获得模板方案路径。如：/WEB-INF/views/modules/cms/front/themes/base
    	 *
    	 * @return
    	 */

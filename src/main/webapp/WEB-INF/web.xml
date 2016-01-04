@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
-	<display-name>JeeSite</display-name>
+	<display-name>Swifts</display-name>
 
 	<!-- Context ConfigLocation -->
 	<context-param>
@@ -190,7 +190,7 @@
 	
 	<!-- [INSERT FRAGMENT HERE] -->
 
-	<!-- Session configure, to "jeesite.properties" file "session.sessionTimeout" parameter.
+	<!-- Session configure, to "swifts.properties" file "session.sessionTimeout" parameter.
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>-->

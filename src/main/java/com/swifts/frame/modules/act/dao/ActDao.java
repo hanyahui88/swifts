@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2014 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2015-2016 <a href="https://github.com/hanyahui88/swifts">swifts</a> All rights reserved.
  */
 package com.swifts.frame.modules.act.dao;
 
@@ -9,7 +9,7 @@ import com.swifts.frame.modules.act.entity.Act;
 
 /**
  * 审批DAO接口
- * @author thinkgem
+ * @author admin
  * @version 2014-05-16
  */
 @MyBatisDao

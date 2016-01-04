@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2014 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2015-2016 <a href="https://github.com/hanyahui88/swifts">swifts</a> All rights reserved.
  */
 package com.swifts.frame.modules.gen.dao;
 
@@ -15,5 +15,5 @@ import com.swifts.frame.modules.gen.entity.GenTableColumn;
 @MyBatisDao
 public interface GenTableColumnDao extends CrudDao<GenTableColumn> {
 	
-	public void deleteByGenTableId(String genTableId);
+	public void deleteByGenTableId(GenTableColumn genTableColumn);
 }

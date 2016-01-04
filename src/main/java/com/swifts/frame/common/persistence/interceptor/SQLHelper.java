@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2014 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2015-2016 <a href="https://github.com/hanyahui88/swifts">swifts</a> All rights reserved.
  */
 package com.swifts.frame.common.persistence.interceptor;
 
@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
 
 /**
  * SQL工具类
- * @author poplar.yfyang / thinkgem
+ * @author poplar.yfyang / admin
  * @version 2013-8-28
  */
 public class SQLHelper {

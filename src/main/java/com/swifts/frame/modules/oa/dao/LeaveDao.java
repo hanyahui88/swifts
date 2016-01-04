@@ -1,5 +1,5 @@
 /**
- * There are <a href="https://github.com/thinkgem/jeesite">JeeSite</a> code generation
+ * There are <a href="https://github.com/hanyahui88/swifts">swifts</a> code generation
  */
 package com.swifts.frame.modules.oa.dao;
 

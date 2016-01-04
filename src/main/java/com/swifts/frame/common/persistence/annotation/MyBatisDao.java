@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2014 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2015-2016 <a href="https://github.com/hanyahui88/swifts">swifts</a> All rights reserved.
  */
 package com.swifts.frame.common.persistence.annotation;
 
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 标识MyBatis的DAO,方便{@link org.mybatis.spring.mapper.MapperScannerConfigurer}的扫描。 
- * @author thinkgem
+ * @author admin
  * @version 2013-8-28
  */
 @Retention(RetentionPolicy.RUNTIME)

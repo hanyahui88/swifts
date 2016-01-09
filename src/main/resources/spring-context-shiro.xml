@@ -79,11 +79,6 @@
 	    <constructor-arg name="name" value="swifts.session.id"/>
 	</bean>
 
-	<!-- 自定义Session存储容器 -->
-<!-- 	<bean id="sessionDAO" class="JedisSessionDAO"> -->
-<!-- 		<property name="sessionIdGenerator" ref="idGen" /> -->
-<!-- 		<property name="sessionKeyPrefix" value="${redis.keyPrefix}_session_" /> -->
-<!-- 	</bean> -->
 	<bean id="sessionDAO" class="com.swifts.frame.common.security.shiro.session.CacheSessionDAO">
 		<property name="sessionIdGenerator" ref="idGen" />
 		<property name="activeSessionsCacheName" value="activeSessionsCache" />

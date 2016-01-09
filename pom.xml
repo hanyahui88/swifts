@@ -16,7 +16,7 @@
 	<properties>
 		
 		<!-- main version setting -->
-		<spring.version>4.0.8.RELEASE</spring.version>
+		<spring.version>4.2.4.RELEASE</spring.version>
 		<validator.version>5.1.1.Final</validator.version>
 		<mybatis.version>3.2.8</mybatis.version>
 		<mybatis-spring.version>1.2.2</mybatis-spring.version>
@@ -41,6 +41,7 @@
 		<dozer.version>5.5.1</dozer.version>
 		<poi.version>3.9</poi.version>
 		<freemarker.version>2.3.20</freemarker.version>
+		<spring-data-redis>1.6.2.RELEASE</spring-data-redis>
 		
 		<!-- jdbc driver setting -->
 		<mysql.driver.version>5.1.30</mysql.driver.version>
@@ -276,6 +277,11 @@
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 			 <version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>${spring-data-redis}</version>
 		</dependency>
 		<!-- CACHE end -->
 		

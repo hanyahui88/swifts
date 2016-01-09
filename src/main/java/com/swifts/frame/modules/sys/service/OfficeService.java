@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.swifts.frame.common.service.TreeService;
+import com.swifts.frame.common.utils.JedisUtils;
 import com.swifts.frame.modules.sys.utils.UserUtils;
 import com.swifts.frame.modules.sys.entity.Office;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,44 +19,54 @@ import com.swifts.frame.modules.sys.dao.OfficeDao;
 
 /**
  * 机构Service
+ *
  * @author ThinkGem
  * @version 2014-05-16
  */
 @Service
 @Transactional(readOnly = true)
+@CacheConfig(cacheNames = {"default"})
 public class OfficeService extends TreeService<OfficeDao, Office> {
+    @Autowired
+    private OfficeDao officeDao;
 
-	public List<Office> findAll(){
-		return UserUtils.getOfficeList();
-	}
 
-	public List<Office> findList(Boolean isAll){
-		if (isAll != null && isAll){
-			return UserUtils.getOfficeAllList();
-		}else{
-			return UserUtils.getOfficeList();
-		}
-	}
-	
-	@Transactional(readOnly = true)
-	public List<Office> findList(Office office){
-		if(office != null){
-			office.setParentIds(office.getParentIds()+"%");
-			return dao.findByParentIdsLike(office);
-		}
-		return  new ArrayList<Office>();
-	}
-	
-	@Transactional(readOnly = false)
-	public void save(Office office) {
-		super.save(office);
-		UserUtils.removeCache(UserUtils.CACHE_OFFICE_LIST);
-	}
-	
-	@Transactional(readOnly = false)
-	public void delete(Office office) {
-		super.delete(office);
-		UserUtils.removeCache(UserUtils.CACHE_OFFICE_LIST);
-	}
-	
+    public List<Office> findAll() {
+        return UserUtils.getOfficeList();
+    }
+    public List<Office> findList(Boolean isAll) {
+        if (isAll != null && isAll) {
+            return UserUtils.getOfficeAllList();
+        } else {
+            return UserUtils.getOfficeList();
+        }
+    }
+
+    @Cacheable(key = "#office.class")
+    public Office findListIntoCache(Office office) {
+        System.out.print("==============cache init=================");
+        return officeDao.get(office);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Office> findList(Office office) {
+        if (office != null) {
+            office.setParentIds(office.getParentIds() + "%");
+            return dao.findByParentIdsLike(office);
+        }
+        return new ArrayList<Office>();
+    }
+
+    @Transactional(readOnly = false)
+    public void save(Office office) {
+        super.save(office);
+        UserUtils.removeCache(UserUtils.CACHE_OFFICE_LIST);
+    }
+
+    @Transactional(readOnly = false)
+    public void delete(Office office) {
+        super.delete(office);
+        UserUtils.removeCache(UserUtils.CACHE_OFFICE_LIST);
+    }
+
 }

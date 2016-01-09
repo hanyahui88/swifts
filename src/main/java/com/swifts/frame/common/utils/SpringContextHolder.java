@@ -6,8 +6,12 @@ package com.swifts.frame.common.utils;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 
+import com.fasterxml.jackson.databind.deser.Deserializers;
+import com.google.common.collect.Lists;
 import com.swifts.frame.common.config.Global;
+import com.swifts.frame.common.service.BaseService;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +50,10 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 	public static <T> T getBean(String name) {
 		assertContextInjected();
 		return (T) applicationContext.getBean(name);
+	}
+	public static String[] getBeanNames(){
+		String[] beans=applicationContext.getBeanDefinitionNames();
+		return beans;
 	}
 
 	/**

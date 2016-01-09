@@ -1,0 +1,4 @@
+1、每个service里的getlist上添加cacheable注解
+2、集成fastweixin
+3、集成第三方登录 微信、微博、QQ
+

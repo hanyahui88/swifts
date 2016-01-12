@@ -1,11 +1,7 @@
 package com.swifts.frame.test;
 
-import com.swifts.frame.common.utils.JedisUtils;
 import com.swifts.frame.modules.sys.entity.Office;
 import com.swifts.frame.modules.sys.service.OfficeService;
-import com.swifts.frame.modules.test.dao.TestDao;
-import com.swifts.frame.modules.test.entity.TestData;
-import com.swifts.frame.modules.test.service.TestDataService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class TestRedisCache {
     @Autowired
     private OfficeService officeService;
-    @Autowired
-    private TestDataService testDataService;
+//    @Autowired
+//    private TestDataService testDataService;
     @Test
     public void test(){
         Office office=new Office();
@@ -34,11 +30,11 @@ public class TestRedisCache {
         Office officeList1=officeService.findListIntoCache(office);
         System.out.print(officeList);
     }
-    @Test
-    public void test1(){
-        TestData testData=new TestData();
-        testDataService.findList(testData);
-        String s=JedisUtils.get(TestDataService.class.toString());
-        Object o=JedisUtils.toObject(s.getBytes());
-    }
+//    @Test
+//    public void test1(){
+//        TestData testData=new TestData();
+//        testDataService.findList(testData);
+//        String s=JedisUtils.get(TestDataService.class.toString());
+//        Object o=JedisUtils.toObject(s.getBytes());
+//    }
 }

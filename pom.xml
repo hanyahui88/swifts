@@ -14,11 +14,11 @@
 	
 	<!-- 项目属性 -->
 	<properties>
-		
 		<!-- main version setting -->
 		<spring.version>4.2.4.RELEASE</spring.version>
 		<validator.version>5.1.1.Final</validator.version>
-		<mybatis.version>3.2.8</mybatis.version>
+		<mybatis.version>3.3.0</mybatis.version>
+		<pagehelper.version>4.0.3</pagehelper.version>
 		<mybatis-spring.version>1.2.2</mybatis-spring.version>
 		<druid.version>1.0.11</druid.version>
 		<ehcache.version>2.6.9</ehcache.version>
@@ -176,7 +176,11 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>${mybatis-spring.version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>${pagehelper.version}</version>
+		</dependency>
 		<!-- connection pool -->
 		<dependency>
 		     <groupId>com.alibaba</groupId>
@@ -775,85 +779,6 @@
 			</plugin>
 		</plugins>
 	</build>
-	
-	<!--<profiles>-->
-		<!--&lt;!&ndash; 初始化数据库 &ndash;&gt;			-->
-		<!--<profile>-->
-			<!--<id>init-db</id>-->
-			<!--<dependencies>-->
-				<!--<dependency>-->
-					<!--<groupId>org.dbunit</groupId>-->
-					<!--<artifactId>dbunit</artifactId>-->
-					<!--<version>2.4.8</version>-->
-				<!--</dependency>-->
-			  	<!--<dependency>-->
-				    <!--<groupId>org.apache.poi</groupId>-->
-				    <!--<artifactId>poi</artifactId>-->
-				    <!--<version>3.2-FINAL</version>-->
-				<!--</dependency>-->
-			<!--</dependencies>-->
-			<!--<build>-->
-				<!--<plugins>-->
-					<!--<plugin>-->
-						<!--<groupId>org.apache.maven.plugins</groupId>-->
-						<!--<artifactId>maven-antrun-plugin</artifactId>-->
-						<!--<version>1.7</version>-->
-						<!--<configuration>-->
-							<!--<target>-->
-								<!---->
-								<!--&lt;!&ndash; mysql &ndash;&gt;-->
-								<!--<property name="dbunit.datatype" value="org.dbunit.ext.mysql.MySqlDataTypeFactory" />-->
-								<!---->
-								<!--&lt;!&ndash; mssql-->
-								<!--<property name="dbunit.datatype" value="org.dbunit.ext.mssql.MsSqlDataTypeFactory" /> &ndash;&gt;-->
-								<!---->
-								<!--&lt;!&ndash; oracle-->
-								<!--<property name="dbunit.datatype" value="org.dbunit.ext.oracle.Oracle10DataTypeFactory" /> &ndash;&gt;-->
-								<!---->
-								<!--<property file="src/main/resources/swifts.properties" />-->
-								<!--<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}" -->
-									<!--onerror="continue" encoding="${project.build.sourceEncoding}">-->
-									<!--<classpath refid="maven.test.classpath" />-->
-									<!--<transaction src="db/sys/jeesite_${jdbc.type}.sql"/>-->
-									<!--<transaction src="db/cms/jeesite_${jdbc.type}.sql"/>-->
-									<!--<transaction src="db/oa/jeesite_${jdbc.type}.sql"/>-->
-									<!--<transaction src="db/gen/jeesite_${jdbc.type}.sql"/>-->
-									<!--<transaction src="db/gen/example_${jdbc.type}.sql"/>-->
-									<!--<transaction src="db/test/jeesite_${jdbc.type}.sql"/>-->
-									<!--<transaction src="db/act/drop/activiti.${jdbc.type}.drop.engine.sql"/>-->
-									<!--<transaction src="db/act/drop/activiti.${jdbc.type}.drop.history.sql"/>-->
-									<!--<transaction src="db/act/drop/activiti.${jdbc.type}.drop.identity.sql"/>-->
-									<!--<transaction src="db/act/create/activiti.${jdbc.type}.create.engine.sql"/>-->
-									<!--<transaction src="db/act/create/activiti.${jdbc.type}.create.history.sql"/>-->
-									<!--<transaction src="db/act/create/activiti.${jdbc.type}.create.identity.sql"/>-->
-								<!--</sql>-->
-								<!---->
-								<!--<taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask" classpathref="maven.test.classpath" />-->
-								<!---->
-								<!--&lt;!&ndash; mysql、mssql &ndash;&gt;-->
-								<!--<dbunit driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}"-->
-									 <!--password="${jdbc.password}">-->
-								<!---->
-								<!--&lt;!&ndash; oracle-->
-								<!--<dbunit driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}"-->
-									<!--password="${jdbc.password}" schema="${jdbc.username}" > &ndash;&gt;-->
-									<!---->
-									<!--<dbconfig>-->
-										<!--<property name="datatypeFactory" value="${dbunit.datatype}" />-->
-									<!--</dbconfig>-->
-									<!--<classpath refid="maven.test.classpath" />-->
-									<!--<operation type="INSERT" src="db/sys/jeesite_data.xls" format="xls" transaction="true"/>-->
-									<!--<operation type="INSERT" src="db/cms/jeesite_data.xls" format="xls" transaction="true"/>-->
-									<!---->
-								<!--</dbunit>-->
-								<!---->
-							<!--</target>-->
-						<!--</configuration>-->
-					<!--</plugin>-->
-				<!--</plugins>-->
-			<!--</build>-->
-		<!--</profile>-->
-	<!--</profiles>-->
 	
 	<!-- 开发者信息 -->
 	<developers>  

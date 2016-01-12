@@ -1,4 +1,8 @@
 1、每个service里的getlist上添加cacheable注解
 2、集成fastweixin
 3、集成第三方登录 微信、微博、QQ
-
+4、添加全文搜索luncene
+5、修改后台页面样式  仿照 http://www.keenthemes.com/preview/metronic/theme/admin_1/ui_colors.html
+6、修改成pagehelper的分页
+7、修改session的键 为swifts.session.id
+8、支付宝、微信支付

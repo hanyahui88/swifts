@@ -10,11 +10,18 @@ import com.swifts.frame.common.config.Global;
 import com.swifts.frame.common.service.TreeService;
 import com.swifts.frame.modules.cms.entity.Category;
 import com.swifts.frame.modules.cms.utils.CmsUtils;
+import com.swifts.frame.modules.sys.dao.MenuDao;
+import com.swifts.frame.modules.sys.dao.RoleDao;
+import com.swifts.frame.modules.sys.entity.Menu;
+import com.swifts.frame.modules.sys.entity.Role;
+import com.swifts.frame.modules.sys.service.SystemService;
 import com.swifts.frame.modules.sys.utils.UserUtils;
 import com.swifts.frame.modules.sys.entity.Office;
 import com.swifts.frame.modules.sys.entity.User;
+import groovy.transform.AutoClone;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,16 +43,34 @@ public class CategoryService extends TreeService<CategoryDao, Category> {
 	public static final String CACHE_CATEGORY_LIST = "categoryList";
 	
 	private Category entity = new Category();
-	
+	@Autowired
+	private MenuDao menuDao;
 	@SuppressWarnings("unchecked")
 	public List<Category> findByUser(boolean isCurrentSite, String module){
-		
 		List<Category> list = (List<Category>) UserUtils.getCache(CACHE_CATEGORY_LIST);
-		if (list == null){
+		if (list == null||list.size()<=0){
 			User user = UserUtils.getUser();
 			Category category = new Category();
 			category.setOffice(new Office());
-			category.getSqlMap().put("dsf", dataScopeFilter(user, "o", "u"));
+			List<Role> roles=user.getRoleList();
+			Boolean flag=true;
+			for(Role role :roles){
+				Menu menu=new Menu();
+				menu.setUserId(user.getId());
+				List<Menu> menus=menuDao.findByUserId(menu);
+				if(Role.DATA_SCOPE_ALL.equals(role.getDataScope())){
+					//所有的数据
+					for(Menu item:menus){
+						if("cms:category:view".equals(item.getPermission())){
+							flag=false;
+							break;
+						}
+					}
+				}
+			}
+			if(flag){
+				category.getSqlMap().put("dsf", dataScopeFilter(user, "o", "u"));
+			}
 			category.setSite(new Site());
 			category.setParent(new Category());
 			list = dao.findList(category);
@@ -65,17 +90,8 @@ public class CategoryService extends TreeService<CategoryDao, Category> {
 					}
 				}
 			}
-			if (parentIdSet.size() > 0){
-				//FIXME 暂且注释，用于测试
-//				dc = dao.createDetachedCriteria();
-//				dc.add(Restrictions.in("id", parentIdSet));
-//				dc.add(Restrictions.eq("delFlag", Category.DEL_FLAG_NORMAL));
-//				dc.addOrder(Order.asc("site.id")).addOrder(Order.asc("sort"));
-//				list.addAll(0, dao.find(dc));
-			}
 			UserUtils.putCache(CACHE_CATEGORY_LIST, list);
 		}
-		
 		if (isCurrentSite){
 			List<Category> categoryList = Lists.newArrayList(); 
 			for (Category e : list){

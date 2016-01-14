@@ -55,9 +55,9 @@ public class User extends DataEntity<User> {
 	private String qqOpenId;
 	private String wxOpenId;
 	private String wbOpenId;
-	private String qqNickName;
-	private String wxNickName;
-	private String wbNickName;
+	private String qqNickname;
+	private String wxNickname;
+	private String wbNickname;
 	private String qqAvatar;
 	private String wbAvatar;
 	private String wxAvatar;
@@ -94,6 +94,30 @@ public class User extends DataEntity<User> {
 		this.wxOpenId = wxOpenId;
 	}
 
+	public String getQqNickname() {
+		return qqNickname;
+	}
+
+	public void setQqNickname(String qqNickname) {
+		this.qqNickname = qqNickname;
+	}
+
+	public String getWbNickname() {
+		return wbNickname;
+	}
+
+	public void setWbNickname(String wbNickname) {
+		this.wbNickname = wbNickname;
+	}
+
+	public String getWxNickname() {
+		return wxNickname;
+	}
+
+	public void setWxNickname(String wxNickname) {
+		this.wxNickname = wxNickname;
+	}
+
 	public String getWbOpenId() {
 		return wbOpenId;
 	}
@@ -101,31 +125,6 @@ public class User extends DataEntity<User> {
 	public void setWbOpenId(String wbOpenId) {
 		this.wbOpenId = wbOpenId;
 	}
-
-	public String getQqNickName() {
-		return qqNickName;
-	}
-
-	public void setQqNickName(String qqNickName) {
-		this.qqNickName = qqNickName;
-	}
-
-	public String getWxNickName() {
-		return wxNickName;
-	}
-
-	public void setWxNickName(String wxNickName) {
-		this.wxNickName = wxNickName;
-	}
-
-	public String getWbNickName() {
-		return wbNickName;
-	}
-
-	public void setWbNickName(String wbNickName) {
-		this.wbNickName = wbNickName;
-	}
-
 	public String getQqAvatar() {
 		return qqAvatar;
 	}

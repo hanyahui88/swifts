@@ -86,7 +86,7 @@ public class ActTaskService extends BaseService {
 	
 	/**
 	 * 获取待办列表
-	 * @param procDefKey 流程定义标识
+	 * @param act
 	 * @return
 	 */
 	public List<Act> todoList(Act act){
@@ -159,7 +159,7 @@ public class ActTaskService extends BaseService {
 	/**
 	 * 获取已办任务
 	 * @param page
-	 * @param procDefKey 流程定义标识
+	 * @param act
 	 * @return
 	 */
 	public Page<Act> historicList(Page<Act> page, Act act){
@@ -337,7 +337,7 @@ public class ActTaskService extends BaseService {
 				formKey = "/404";
 			}
 		}
-		logger.debug("getFormKey: {}", formKey);
+		logger.debug("getFormKey: "+ formKey);
 		return formKey;
 	}
 	
@@ -614,7 +614,7 @@ public class ActTaskService extends BaseService {
 		vars.put("任务类型", ActUtils.parseToZhType(properties.get("type").toString()));
 
 		ActivityBehavior activityBehavior = activity.getActivityBehavior();
-		logger.debug("activityBehavior={}", activityBehavior);
+		logger.debug("activityBehavior="+activityBehavior);
 		if (activityBehavior instanceof UserTaskActivityBehavior) {
 
 			Task currentTask = null;
@@ -645,7 +645,7 @@ public class ActTaskService extends BaseService {
 		String description = activity.getProcessDefinition().getDescription();
 		vars.put("描述", description);
 
-		logger.debug("trace variables: {}", vars);
+		logger.debug("trace variables: "+vars);
 		activityInfo.put("vars", vars);
 		return activityInfo;
 	}
@@ -688,14 +688,14 @@ public class ActTaskService extends BaseService {
 		Task currentTask = null;
 		try {
 			String activitiId = (String) PropertyUtils.getProperty(processInstance, "activityId");
-			logger.debug("current activity id: {}", activitiId);
+			logger.debug("current activity id: "+activitiId);
 
 			currentTask = taskService.createTaskQuery().processInstanceId(processInstance.getId()).taskDefinitionKey(activitiId)
 					.singleResult();
-			logger.debug("current task for processInstance: {}", ToStringBuilder.reflectionToString(currentTask));
+			logger.debug("current task for processInstance: "+ ToStringBuilder.reflectionToString(currentTask));
 
 		} catch (Exception e) {
-			logger.error("can not get property activityId from processInstance: {}", processInstance);
+			logger.error("can not get property activityId from processInstance: "+ processInstance);
 		}
 		return currentTask;
 	}

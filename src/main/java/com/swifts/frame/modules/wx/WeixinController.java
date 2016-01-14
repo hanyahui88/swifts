@@ -1,7 +1,5 @@
 package com.swifts.frame.modules.wx;
 
-import com.swifts.frame.modules.wx.fastweixin.handle.EventHandle;
-import com.swifts.frame.modules.wx.fastweixin.handle.MessageHandle;
 import com.swifts.frame.modules.wx.fastweixin.message.BaseMsg;
 import com.swifts.frame.modules.wx.fastweixin.message.TextMsg;
 import com.swifts.frame.modules.wx.fastweixin.message.req.TextReqMsg;
@@ -11,13 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by dayan on 2016/1/11.
  */
-@RestController
+@RestController("weixin")
 @RequestMapping("/api/weixin")
 public class WeixinController extends WeixinControllerSupport {
     private static final Logger log = LoggerFactory.getLogger(WeixinController.class);

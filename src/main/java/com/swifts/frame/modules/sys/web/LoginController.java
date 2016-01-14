@@ -11,13 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.swifts.frame.common.config.Global;
 import com.swifts.frame.common.security.shiro.session.SessionDAO;
 import com.swifts.frame.common.servlet.ValidateCodeServlet;
-import com.swifts.frame.common.utils.CacheUtils;
-import com.swifts.frame.common.utils.IdGen;
-import com.swifts.frame.common.utils.StringUtils;
+import com.swifts.frame.common.utils.*;
 import com.swifts.frame.common.web.BaseController;
-import com.swifts.frame.common.utils.CookieUtils;
 import com.swifts.frame.modules.sys.security.FormAuthenticationFilter;
 import com.swifts.frame.modules.sys.security.SystemAuthorizingRealm;
+import com.swifts.frame.modules.sys.utils.LogUtils;
 import com.swifts.frame.modules.sys.utils.UserUtils;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -56,7 +54,7 @@ public class LoginController extends BaseController {
 //		}
 		
 		if (logger.isDebugEnabled()){
-			logger.debug("login, active session size: {}", sessionDAO.getActiveSessions(false).size());
+			LoggerUtils.debug(logger,"login, active session size: {}", sessionDAO.getActiveSessions(false).size());
 		}
 		
 		// 如果已登录，再次访问主页，则退出原账号。
@@ -100,7 +98,7 @@ public class LoginController extends BaseController {
 		model.addAttribute(FormAuthenticationFilter.DEFAULT_MESSAGE_PARAM, message);
 		
 		if (logger.isDebugEnabled()){
-			logger.debug("login fail, active session size: {}, message: {}, exception: {}", 
+			LoggerUtils.debug(logger,"login fail, active session size: {}, message: {}, exception: {}",
 					sessionDAO.getActiveSessions(false).size(), message, exception);
 		}
 		
@@ -132,7 +130,7 @@ public class LoginController extends BaseController {
 		isValidateCodeLogin(principal.getLoginName(), false, true);
 		
 		if (logger.isDebugEnabled()){
-			logger.debug("show index, active session size: {}", sessionDAO.getActiveSessions(false).size());
+			LoggerUtils.debug(logger,"show index, active session size: {}", sessionDAO.getActiveSessions(false).size());
 		}
 		
 		// 如果已登录，再次访问主页，则退出原账号。

@@ -100,9 +100,9 @@ public class ActProcessService extends BaseService {
 	
 	/**
 	 * 读取资源，通过部署ID
-	 * @param processDefinitionId  流程定义ID
-	 * @param processInstanceId 流程实例ID
-	 * @param resourceType 资源类型(xml|image)
+	 * @param procDefId  流程定义ID
+	 * @param proInsId 流程实例ID
+	 * @param resType 资源类型(xml|image)
 	 */
 	public InputStream resourceRead(String procDefId, String proInsId, String resType) throws Exception {
 		
@@ -267,12 +267,12 @@ public class ActProcessService extends BaseService {
 			// 文件存在退出
 			if (file.exists()) {
 				// 文件大小相同时直接返回否则重新创建文件(可能损坏)
-				logger.debug("diagram exist, ignore... : {}", diagramPath);
+				logger.debug("diagram exist, ignore... : "+diagramPath);
 				
 				files.add(diagramPath);
 			} else {
 				file.createNewFile();
-				logger.debug("export diagram to : {}", diagramPath);
+				logger.debug("export diagram to : "+diagramPath);
 
 				// wirte bytes to file
 				FileUtils.writeByteArrayToFile(file, b, true);

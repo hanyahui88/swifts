@@ -49,7 +49,18 @@ public class User extends DataEntity<User> {
 	
 	private String oldLoginIp;	// 上次登陆IP
 	private Date oldLoginDate;	// 上次登陆日期
-	
+
+	private String type;//后台用户还是其他用户　　０：后台用户　　１：其他用户
+	//第三方登录字段
+	private String qqOpenId;
+	private String wxOpenId;
+	private String wbOpenId;
+	private String qqNickName;
+	private String wxNickName;
+	private String wbNickName;
+	private String qqAvatar;
+	private String wbAvatar;
+	private String wxAvatar;
 	private Role role;	// 根据角色查询用户条件
 	
 	private List<Role> roleList = Lists.newArrayList(); // 拥有角色列表
@@ -58,7 +69,87 @@ public class User extends DataEntity<User> {
 		super();
 		this.loginFlag = Global.YES;
 	}
-	
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getQqOpenId() {
+		return qqOpenId;
+	}
+
+	public void setQqOpenId(String qqOpenId) {
+		this.qqOpenId = qqOpenId;
+	}
+
+	public String getWxOpenId() {
+		return wxOpenId;
+	}
+
+	public void setWxOpenId(String wxOpenId) {
+		this.wxOpenId = wxOpenId;
+	}
+
+	public String getWbOpenId() {
+		return wbOpenId;
+	}
+
+	public void setWbOpenId(String wbOpenId) {
+		this.wbOpenId = wbOpenId;
+	}
+
+	public String getQqNickName() {
+		return qqNickName;
+	}
+
+	public void setQqNickName(String qqNickName) {
+		this.qqNickName = qqNickName;
+	}
+
+	public String getWxNickName() {
+		return wxNickName;
+	}
+
+	public void setWxNickName(String wxNickName) {
+		this.wxNickName = wxNickName;
+	}
+
+	public String getWbNickName() {
+		return wbNickName;
+	}
+
+	public void setWbNickName(String wbNickName) {
+		this.wbNickName = wbNickName;
+	}
+
+	public String getQqAvatar() {
+		return qqAvatar;
+	}
+
+	public void setQqAvatar(String qqAvatar) {
+		this.qqAvatar = qqAvatar;
+	}
+
+	public String getWbAvatar() {
+		return wbAvatar;
+	}
+
+	public void setWbAvatar(String wbAvatar) {
+		this.wbAvatar = wbAvatar;
+	}
+
+	public String getWxAvatar() {
+		return wxAvatar;
+	}
+
+	public void setWxAvatar(String wxAvatar) {
+		this.wxAvatar = wxAvatar;
+	}
+
 	public User(String id){
 		super(id);
 	}

@@ -1,4 +1,4 @@
-1、每个service里的getlist上添加cacheable注解
+1、每个service里的getlist上添加cacheable注解,好像加注解用jedisUtils获取不到
 2、集成fastweixin    简单的集成了进来
 3、集成第三方登录 微信、微博、QQ
 4、添加全文搜索luncene
@@ -7,3 +7,11 @@
 7、修改session的键 为swifts.session.id   完成
 8、支付宝、微信支付
 9、更换log4j日志  换成logback日志   不换了，druid不支持，以后看看能不能更换成log4g2
+10、以后添加spark,支持数据分析、数据挖掘、机器学习
+11、docker部署支持
+
+
+
+=============================当前计划===============================
+
+１、先完成ｂｂｓ

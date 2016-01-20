@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.swifts.frame.common.web.BaseController;
 import com.swifts.frame.common.mapper.JsonMapper;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.modules.oa.entity.Leave;
 import com.swifts.frame.modules.oa.service.LeaveService;
 import com.swifts.frame.modules.sys.utils.UserUtils;
@@ -79,7 +79,7 @@ public class LeaveController extends BaseController {
 
 	/**
 	 * 任务列表
-	 * @param leave	
+	 * @param session
 	 */
 	@RequiresPermissions("oa:leave:view")
 	@RequestMapping(value = {"list/task",""})
@@ -97,7 +97,7 @@ public class LeaveController extends BaseController {
 	@RequiresPermissions("oa:leave:view")
 	@RequestMapping(value = {"list"})
 	public String list(Leave leave, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Page<Leave> page = leaveService.find(new Page<Leave>(request, response), leave);
+        PageInfo<Leave> page = leaveService.find(super.getPageNum(request),super.getPageSize(request), leave);
         model.addAttribute("page", page);
 		return "modules/oa/leaveList";
 	}

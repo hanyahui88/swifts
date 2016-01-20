@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.swifts.frame.common.config.Global;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.modules.cms.utils.CmsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,14 +41,12 @@ public class FrontGuestbookController extends BaseController{
 	 */
 	@RequestMapping(value = "", method=RequestMethod.GET)
 	public String guestbook(@RequestParam(required=false, defaultValue="1") Integer pageNo,
-			@RequestParam(required=false, defaultValue="30") Integer pageSize, Model model) {
+			@RequestParam(required=false, defaultValue="30") Integer pageSize, Model model,HttpServletRequest request) {
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
 		model.addAttribute("site", site);
-		
-		Page<Guestbook> page = new Page<Guestbook>(pageNo, pageSize);
 		Guestbook guestbook = new Guestbook();
 		guestbook.setDelFlag(Guestbook.DEL_FLAG_NORMAL);
-		page = guestbookService.findPage(page, guestbook);
+		PageInfo<Guestbook> page = guestbookService.findPage(super.getPageNum(request),super.getPageSize(request), guestbook);
 		model.addAttribute("page", page);
 		return "modules/cms/front/themes/"+site.getTheme()+"/frontGuestbook";
 	}

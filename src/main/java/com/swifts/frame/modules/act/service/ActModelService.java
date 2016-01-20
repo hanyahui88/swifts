@@ -3,13 +3,8 @@
  */
 package com.swifts.frame.modules.act.service;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
+import com.swifts.frame.common.pagehelper.PageHelper;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.service.BaseService;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
@@ -18,6 +13,7 @@ import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ModelQuery;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.apache.commons.io.IOUtils;
@@ -30,7 +26,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.swifts.frame.common.persistence.Page;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 /**
  * 流程模型相关Controller
@@ -47,17 +47,17 @@ public class ActModelService extends BaseService {
 	/**
 	 * 流程模型列表
 	 */
-	public Page<org.activiti.engine.repository.Model> modelList(Page<org.activiti.engine.repository.Model> page, String category) {
+	public PageInfo<Model> modelList(int pageNum,int pageSize, String category) {
 
 		ModelQuery modelQuery = repositoryService.createModelQuery().latestVersion().orderByLastUpdateTime().desc();
 		
 		if (StringUtils.isNotEmpty(category)){
 			modelQuery.modelCategory(category);
 		}
-		
-		page.setCount(modelQuery.count());
+		PageHelper.startPage(pageNum,pageSize,true);
+		PageInfo<Model> page=new PageInfo<>();
 		page.setList(modelQuery.listPage(page.getFirstResult(), page.getMaxResults()));
-
+		page.setTotal(modelQuery.count());
 		return page;
 	}
 

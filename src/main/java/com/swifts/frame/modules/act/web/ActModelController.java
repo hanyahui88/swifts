@@ -6,7 +6,7 @@ package com.swifts.frame.modules.act.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.modules.act.service.ActModelService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,8 @@ public class ActModelController extends BaseController {
 	@RequestMapping(value = { "list", "" })
 	public String modelList(String category, HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		Page<org.activiti.engine.repository.Model> page = actModelService.modelList(
-				new Page<org.activiti.engine.repository.Model>(request, response), category);
+		PageInfo<org.activiti.engine.repository.Model> page = actModelService.modelList(
+				super.getPageNum(request),super.getPageSize(request),category);
 
 		model.addAttribute("page", page);
 		model.addAttribute("category", category);

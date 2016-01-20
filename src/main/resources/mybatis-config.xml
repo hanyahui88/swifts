@@ -40,13 +40,13 @@
 	</settings>
 	
 	<!-- 类型别名 -->
-	<typeAliases>
-		<typeAlias alias="Page" type="com.swifts.frame.common.persistence.Page" /><!--分页  -->
-	</typeAliases>
+	<!--<typeAliases>-->
+		<!--<typeAlias alias="Page" type="com.swifts.frame.common.pagehelper.PageInfo" />&lt;!&ndash;分页  &ndash;&gt;-->
+	<!--</typeAliases>-->
 	
 	<!-- 插件配置 -->
-	<plugins>
-		<plugin interceptor="com.swifts.frame.common.persistence.interceptor.PaginationInterceptor" />
-    </plugins>
+	<!--<plugins>-->
+		<!--<plugin interceptor="com.swifts.frame.common.persistence.interceptor.PaginationInterceptor" />-->
+	<!--</plugins>-->
 	
 </configuration>

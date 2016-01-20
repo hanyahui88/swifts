@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.modules.cms.entity.Guestbook;
 import com.swifts.frame.modules.cms.service.GuestbookService;
 
@@ -49,7 +49,7 @@ public class GuestbookController extends BaseController {
 	@RequiresPermissions("cms:guestbook:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(Guestbook guestbook, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Page<Guestbook> page = guestbookService.findPage(new Page<Guestbook>(request, response), guestbook); 
+        PageInfo<Guestbook> page = guestbookService.findPage(super.getPageNum(request),super.getPageSize(request), guestbook);
         model.addAttribute("page", page);
 		return "modules/cms/guestbookList";
 	}

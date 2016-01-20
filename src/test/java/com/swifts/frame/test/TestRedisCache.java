@@ -1,5 +1,7 @@
 package com.swifts.frame.test;
 
+import com.swifts.frame.common.pagehelper.PageInfo;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.modules.sys.entity.Office;
 import com.swifts.frame.modules.sys.service.OfficeService;
 import org.junit.Test;
@@ -26,9 +28,8 @@ public class TestRedisCache {
     public void test(){
         Office office=new Office();
         office.setId("1");
-        Office officeList=officeService.findListIntoCache(office);
-        Office officeList1=officeService.findListIntoCache(office);
-        System.out.print(officeList);
+        PageInfo<Office> officeList2=officeService.findPage(1,3);
+        System.out.print(officeList2);
     }
 //    @Test
 //    public void test1(){

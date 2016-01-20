@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.common.web.BaseController;
 import com.swifts.frame.common.mapper.JsonMapper;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.modules.cms.entity.Article;
 import com.swifts.frame.modules.cms.entity.Category;
 import com.swifts.frame.modules.cms.entity.Site;
@@ -74,7 +74,7 @@ public class ArticleController extends BaseController {
 //			a.getArticleData().setContent(a.getTitle());
 //			articleService.save(a);
 //		}
-        Page<Article> page = articleService.findPage(new Page<Article>(request, response), article, true);
+        PageInfo<Article> page = articleService.findPage(super.getPageNum(request),super.getPageSize(request), article, true);
         model.addAttribute("page", page);
 		return "modules/cms/articleList";
 	}

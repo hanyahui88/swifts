@@ -9,7 +9,7 @@
 			top.$.jBox.tip.mess = null;
 		});
 		function page(n,s){
-        	location = '${ctx}/act/task/process/?pageNo='+n+'&pageSize='+s;
+        	location = '${ctx}/act/task/process/?pageNum='+n+'&pageSize='+s;
         }
 	</script>
 </head>

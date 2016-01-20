@@ -28,7 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.utils.DateUtils;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.common.utils.excel.ExportExcel;
@@ -68,7 +68,7 @@ public class UserController extends BaseController {
 	@RequiresPermissions("sys:user:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(User user, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<User> page = systemService.findUser(new Page<User>(request, response), user);
+		PageInfo<User> page = systemService.findUser(super.getPageNum(request),super.getPageSize(request), user);
         model.addAttribute("page", page);
 		return "modules/sys/userList";
 	}
@@ -76,8 +76,8 @@ public class UserController extends BaseController {
 	@ResponseBody
 	@RequiresPermissions("sys:user:view")
 	@RequestMapping(value = {"listData"})
-	public Page<User> listData(User user, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<User> page = systemService.findUser(new Page<User>(request, response), user);
+	public PageInfo<User> listData(User user, HttpServletRequest request, HttpServletResponse response, Model model) {
+		PageInfo<User> page = systemService.findUser(super.getPageNum(request),super.getPageSize(request),user);
 		return page;
 	}
 
@@ -168,7 +168,7 @@ public class UserController extends BaseController {
     public String exportFile(User user, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		try {
             String fileName = "用户数据"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
-            Page<User> page = systemService.findUser(new Page<User>(request, response, -1), user);
+            PageInfo<User> page = systemService.findUser(super.getPageNum(request),super.getPageSize(request),user);
     		new ExportExcel("用户数据", User.class).setDataList(page.getList()).write(response, fileName).dispose();
     		return null;
 		} catch (Exception e) {

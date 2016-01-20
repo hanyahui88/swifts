@@ -3,19 +3,18 @@
  */
 package com.swifts.frame.modules.sys.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.swifts.frame.common.pagehelper.PageHelper;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.service.TreeService;
-import com.swifts.frame.common.utils.JedisUtils;
-import com.swifts.frame.modules.sys.utils.UserUtils;
+import com.swifts.frame.modules.sys.dao.OfficeDao;
 import com.swifts.frame.modules.sys.entity.Office;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.*;
+import com.swifts.frame.modules.sys.utils.UserUtils;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.swifts.frame.modules.sys.dao.OfficeDao;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 机构Service
@@ -27,10 +26,6 @@ import com.swifts.frame.modules.sys.dao.OfficeDao;
 @Transactional(readOnly = true)
 @CacheConfig(cacheNames = {"default"})
 public class OfficeService extends TreeService<OfficeDao, Office> {
-    @Autowired
-    private OfficeDao officeDao;
-
-
     public List<Office> findAll() {
         return UserUtils.getOfficeList();
     }
@@ -40,12 +35,6 @@ public class OfficeService extends TreeService<OfficeDao, Office> {
         } else {
             return UserUtils.getOfficeList();
         }
-    }
-
-    @Cacheable(key = "#office.class")
-    public Office findListIntoCache(Office office) {
-        System.out.print("==============cache init=================");
-        return officeDao.get(office);
     }
 
     @Transactional(readOnly = true)
@@ -67,6 +56,22 @@ public class OfficeService extends TreeService<OfficeDao, Office> {
     public void delete(Office office) {
         super.delete(office);
         UserUtils.removeCache(UserUtils.CACHE_OFFICE_LIST);
+    }
+
+
+    public PageInfo<Office> findPage(){
+        Office office=new Office();
+        PageInfo<Office> officePageInfo=new PageInfo<>();
+        officePageInfo.setPageSize(4);
+        officePageInfo.setPageNum(1);
+        officePageInfo.setList(dao.findList(office));
+        return null;
+    }
+    public PageInfo<Office> findPage(int pageNum,int pageSize){
+        PageHelper.startPage(pageNum,pageSize,true);
+        Office office=new Office();
+        PageInfo<Office> page=new PageInfo<>(dao.findList(office));
+        return page;
     }
 
 }

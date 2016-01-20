@@ -49,7 +49,7 @@
 <body>
 	<div style="margin:10px;">
 	<form:form id="searchForm" modelAttribute="article" action="${ctx}/cms/article/selectList" method="post" class="breadcrumb form-search">
-		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
+		<input id="pageNo" name="pageNum" type="hidden" value="${page.pageNum}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<label>栏目：</label><sys:treeselect id="category" name="category.id" value="${article.category.id}" labelName="category.name" labelValue="${article.category.name}"
 					title="栏目" url="/cms/category/treeData" module="article" cssClass="input-small"/>

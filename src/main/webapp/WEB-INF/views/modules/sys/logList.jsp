@@ -18,7 +18,7 @@
 <%-- 		<li class="active"><a href="${ctx}/sys/log/">日志列表</a></li> --%>
 <!-- 	</ul> -->
 	<form:form id="searchForm" action="${ctx}/sys/log/" method="post" class="breadcrumb form-search">
-		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
+		<input id="pageNo" name="pageNum" type="hidden" value="${page.pageNum}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<div>
 			<label>操作菜单：</label><input id="title" name="title" type="text" maxlength="50" class="input-mini" value="${log.title}"/>

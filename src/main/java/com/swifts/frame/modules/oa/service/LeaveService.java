@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.swifts.frame.common.pagehelper.PageHelper;
 import com.swifts.frame.common.utils.Collections3;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.modules.act.utils.ActUtils;
@@ -24,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.service.BaseService;
 
 /**
@@ -136,13 +137,11 @@ public class LeaveService extends BaseService {
         return results;
     }
 
-    public Page<Leave> find(Page<Leave> page, Leave leave) {
+    public PageInfo<Leave> find(int pageNum,int pageSize,  Leave leave) {
 
         leave.getSqlMap().put("dsf", dataScopeFilter(leave.getCurrentUser(), "o", "u"));
-
-        leave.setPage(page);
-        page.setList(leaveDao.findList(leave));
-
+        PageHelper.startPage(pageNum,pageSize,true);
+        PageInfo<Leave> page=new PageInfo<>(leaveDao.findList(leave));
         for (Leave item : page.getList()) {
             String processInstanceId = item.getProcessInstanceId();
             Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).active().singleResult();

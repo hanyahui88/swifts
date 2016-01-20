@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.swifts.frame.common.config.Global;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.utils.CookieUtils;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.common.web.BaseController;
@@ -47,7 +47,7 @@ public class SiteController extends BaseController {
 	@RequiresPermissions("cms:site:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(Site site, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Page<Site> page = siteService.findPage(new Page<Site>(request, response), site);
+        PageInfo<Site> page = siteService.findPage(super.getPageNum(request),super.getPageSize(request), site);
         model.addAttribute("page", page);
 		return "modules/cms/siteList";
 	}

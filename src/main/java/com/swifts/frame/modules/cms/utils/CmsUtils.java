@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.Lists;
+import com.swifts.frame.common.pagehelper.PageHelper;
 import com.swifts.frame.common.utils.SpringContextHolder;
 import com.swifts.frame.common.config.Global;
 import com.swifts.frame.common.mapper.JsonMapper;
@@ -17,7 +18,7 @@ import com.swifts.frame.modules.cms.entity.Article;
 import com.swifts.frame.modules.cms.service.ArticleService;
 import com.swifts.frame.common.utils.StringUtils;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.utils.CacheUtils;
 import com.swifts.frame.modules.cms.entity.Link;
 import com.swifts.frame.modules.cms.entity.Site;
@@ -50,9 +51,7 @@ public class CmsUtils {
 		@SuppressWarnings("unchecked")
 		List<Site> siteList = (List<Site>)CacheUtils.get(CMS_CACHE, "siteList");
 		if (siteList == null){
-			Page<Site> page = new Page<Site>(1, -1);
-			page = siteService.findPage(page, new Site());
-			siteList = page.getList();
+			siteList=siteService.findList(new Site());
 			CacheUtils.put(CMS_CACHE, "siteList", siteList);
 		}
 		return siteList;
@@ -87,9 +86,7 @@ public class CmsUtils {
 			category.setSite(new Site(siteId));
 			category.setParent(new Category("1"));
 			category.setInMenu(Global.SHOW);
-			Page<Category> page = new Page<Category>(1, -1);
-			page = categoryService.find(page, category);
-			mainNavList = page.getList();
+			mainNavList = categoryService.findList(new Category());
 			CacheUtils.put(CMS_CACHE, "mainNavList_"+siteId, mainNavList);
 		}
 		return mainNavList;
@@ -112,7 +109,6 @@ public class CmsUtils {
 	 * @param param  预留参数，例： key1:'value1', key2:'value2' ...
 	 */
 	public static List<Category> getCategoryList(String siteId, String parentId, int number, String param){
-		Page<Category> page = new Page<Category>(1, number, -1);
 		Category category = new Category();
 		category.setSite(new Site(siteId));
 		category.setParent(new Category(parentId));
@@ -120,7 +116,7 @@ public class CmsUtils {
 			@SuppressWarnings({ "unused", "rawtypes" })
 			Map map = JsonMapper.getInstance().fromJson("{"+param+"}", Map.class);
 		}
-		page = categoryService.find(page, category);
+		PageInfo<Category> page = categoryService.find(1,number, category);
 		return page.getList();
 	}
 
@@ -155,7 +151,7 @@ public class CmsUtils {
 	 * ${fnc:getArticleList(category.site.id, category.id, not empty pageSize?pageSize:8, 'posid:2, orderBy: \"hits desc\"')}"
 	 */
 	public static List<Article> getArticleList(String siteId, String categoryId, int number, String param){
-		Page<Article> page = new Page<Article>(1, number, -1);
+		PageInfo<Article> page = new PageInfo<>();
 		Category category = new Category(categoryId, new Site(siteId));
 		category.setParentIds(categoryId);
 		Article article = new Article(category);
@@ -173,7 +169,7 @@ public class CmsUtils {
 			}
 		}
 		article.setDelFlag(Article.DEL_FLAG_NORMAL);
-		page = articleService.findPage(page, article, false);
+		page = articleService.findPage(1,number, article, false);
 		return page.getList();
 	}
 	
@@ -195,14 +191,13 @@ public class CmsUtils {
 	 * @return
 	 */
 	public static List<Link> getLinkList(String siteId, String categoryId, int number, String param){
-		Page<Link> page = new Page<Link>(1, number, -1);
 		Link link = new Link(new Category(categoryId, new Site(siteId)));
 		if (StringUtils.isNotBlank(param)){
 			@SuppressWarnings({ "unused", "rawtypes" })
 			Map map = JsonMapper.getInstance().fromJson("{"+param+"}", Map.class);
 		}
 		link.setDelFlag(Link.DEL_FLAG_NORMAL);
-		page = linkService.findPage(page, link, false);
+		PageInfo<Link> page = linkService.findPage(1, number,link, false);
 		return page.getList();
 	}
 	

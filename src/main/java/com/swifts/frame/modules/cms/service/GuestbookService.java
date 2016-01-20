@@ -3,8 +3,9 @@
  */
 package com.swifts.frame.modules.cms.service;
 
+import com.swifts.frame.common.pagehelper.PageHelper;
 import com.swifts.frame.common.service.CrudService;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.modules.cms.entity.Guestbook;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +25,7 @@ public class GuestbookService extends CrudService<GuestbookDao, Guestbook> {
 		return dao.get(id);
 	}
 	
-	public Page<Guestbook> findPage(Page<Guestbook> page, Guestbook guestbook) {
+	public PageInfo<Guestbook> findPage(int pageNum,int pageSize, Guestbook guestbook) {
 //		DetachedCriteria dc = dao.createDetachedCriteria();
 //		if (StringUtils.isNotEmpty(guestbook.getType())){
 //			dc.add(Restrictions.eq("type", guestbook.getType()));
@@ -35,10 +36,9 @@ public class GuestbookService extends CrudService<GuestbookDao, Guestbook> {
 //		dc.add(Restrictions.eq(Guestbook.FIELD_DEL_FLAG, guestbook.getDelFlag()));
 //		dc.addOrder(Order.desc("createDate"));
 //		return dao.find(page, dc);
+		PageHelper.startPage(pageNum,pageSize,true);
 		guestbook.getSqlMap().put("dsf", dataScopeFilter(guestbook.getCurrentUser(), "o", "u"));
-		
-		guestbook.setPage(page);
-		page.setList(dao.findList(guestbook));
+		PageInfo<Guestbook> page=new PageInfo<>(dao.findList(guestbook));
 		return page;
 	}
 	
@@ -59,7 +59,7 @@ public class GuestbookService extends CrudService<GuestbookDao, Guestbook> {
 	 * 全文检索
 	 */
 	//FIXME 暂不提供
-	public Page<Guestbook> search(Page<Guestbook> page, String q, String beginDate, String endDate){
+	public PageInfo<Guestbook> search(int pageNum,int pageSize, String q, String beginDate, String endDate){
 		
 		// 设置查询条件
 //		BooleanQuery query = dao.getFullTextQuery(q, "name","content","reContent");
@@ -92,7 +92,7 @@ public class GuestbookService extends CrudService<GuestbookDao, Guestbook> {
 //		dao.keywordsHighlight(query, page.getList(), 1300, "content");
 //		dao.keywordsHighlight(query, page.getList(), 1300, "reContent");
 		
-		return page;
+		return null;
 	}
 	
 }

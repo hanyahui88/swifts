@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 
 /**
  * 通知通告Controller
@@ -49,7 +49,7 @@ public class OaNotifyController extends BaseController {
 	@RequiresPermissions("oa:oaNotify:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(OaNotify oaNotify, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<OaNotify> page = oaNotifyService.find(new Page<OaNotify>(request, response), oaNotify);
+		PageInfo<OaNotify> page = oaNotifyService.find(super.getPageNum(request),super.getPageSize(request), oaNotify);
 		model.addAttribute("page", page);
 		return "modules/oa/oaNotifyList";
 	}
@@ -97,7 +97,7 @@ public class OaNotifyController extends BaseController {
 	@RequestMapping(value = "self")
 	public String selfList(OaNotify oaNotify, HttpServletRequest request, HttpServletResponse response, Model model) {
 		oaNotify.setSelf(true);
-		Page<OaNotify> page = oaNotifyService.find(new Page<OaNotify>(request, response), oaNotify); 
+		PageInfo<OaNotify> page = oaNotifyService.find(super.getPageNum(request),super.getPageSize(request), oaNotify);
 		model.addAttribute("page", page);
 		return "modules/oa/oaNotifyList";
 	}
@@ -108,9 +108,9 @@ public class OaNotifyController extends BaseController {
 	@RequiresPermissions("oa:oaNotify:view")
 	@RequestMapping(value = "selfData")
 	@ResponseBody
-	public Page<OaNotify> listData(OaNotify oaNotify, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public PageInfo<OaNotify> listData(OaNotify oaNotify, HttpServletRequest request, HttpServletResponse response, Model model) {
 		oaNotify.setSelf(true);
-		Page<OaNotify> page = oaNotifyService.find(new Page<OaNotify>(request, response), oaNotify);
+		PageInfo<OaNotify> page = oaNotifyService.find(super.getPageNum(request),super.getPageSize(request),oaNotify);
 		return page;
 	}
 	

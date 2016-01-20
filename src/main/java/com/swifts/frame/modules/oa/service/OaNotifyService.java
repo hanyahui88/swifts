@@ -5,6 +5,7 @@ package com.swifts.frame.modules.oa.service;
 
 import java.util.Date;
 
+import com.swifts.frame.common.pagehelper.PageHelper;
 import com.swifts.frame.common.service.CrudService;
 import com.swifts.frame.modules.oa.dao.OaNotifyDao;
 import com.swifts.frame.modules.oa.entity.OaNotify;
@@ -14,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 
 /**
  * 通知通告Service
@@ -43,9 +44,9 @@ public class OaNotifyService extends CrudService<OaNotifyDao, OaNotify> {
 		return oaNotify;
 	}
 	
-	public Page<OaNotify> find(Page<OaNotify> page, OaNotify oaNotify) {
-		oaNotify.setPage(page);
-		page.setList(dao.findList(oaNotify));
+	public PageInfo<OaNotify> find(int pageNum,int pageSize, OaNotify oaNotify) {
+		PageHelper.startPage(pageNum,pageSize,true);
+		PageInfo<OaNotify> page=new PageInfo<>(dao.findList(oaNotify));
 		return page;
 	}
 	

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.swifts.frame.common.config.Global;
+import com.swifts.frame.common.pagehelper.PageHelper;
 import com.swifts.frame.common.service.TreeService;
 import com.swifts.frame.modules.cms.entity.Category;
 import com.swifts.frame.modules.cms.utils.CmsUtils;
@@ -20,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.modules.cms.dao.CategoryDao;
 import com.swifts.frame.modules.cms.entity.Site;
 
@@ -105,7 +106,7 @@ public class CategoryService extends TreeService<CategoryDao, Category> {
 		return dao.findByParentIdAndSiteId(entity);
 	}
 	
-	public Page<Category> find(Page<Category> page, Category category) {
+	public PageInfo<Category> find(int pageNum,int pageSize, Category category) {
 //		DetachedCriteria dc = dao.createDetachedCriteria();
 //		if (category.getSite()!=null && StringUtils.isNotBlank(category.getSite().getId())){
 //			dc.createAlias("site", "site");
@@ -123,9 +124,9 @@ public class CategoryService extends TreeService<CategoryDao, Category> {
 //		return dao.find(page, dc);
 //		page.setSpringPage(dao.findByParentId(category.getParent().getId(), page.getSpringPage()));
 //		return page;
-		category.setPage(page);
+		PageHelper.startPage(pageNum,pageSize,true);
 		category.setInMenu(Global.SHOW);
-		page.setList(dao.findModule(category));
+		PageInfo<Category> page=new PageInfo<>(dao.findModule(category));
 		return page;
 	}
 	

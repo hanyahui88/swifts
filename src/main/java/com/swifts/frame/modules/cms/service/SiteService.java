@@ -4,7 +4,7 @@
 package com.swifts.frame.modules.cms.service;
 
 import com.swifts.frame.common.service.CrudService;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.modules.cms.utils.CmsUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import com.swifts.frame.modules.cms.entity.Site;
 @Transactional(readOnly = true)
 public class SiteService extends CrudService<SiteDao, Site> {
 
-	public Page<Site> findPage(Page<Site> page, Site site) {
+	public PageInfo<Site> findPage(int pageNum,int pageSize, Site site) {
 //		DetachedCriteria dc = siteDao.createDetachedCriteria();
 //		if (StringUtils.isNotEmpty(site.getName())){
 //			dc.add(Restrictions.like("name", "%"+site.getName()+"%"));
@@ -33,7 +33,7 @@ public class SiteService extends CrudService<SiteDao, Site> {
 		
 		site.getSqlMap().put("site", dataScopeFilter(site.getCurrentUser(), "o", "u"));
 		
-		return super.findPage(page, site);
+		return super.findPage(pageNum,pageSize, site);
 	}
 
 	@Transactional(readOnly = false)

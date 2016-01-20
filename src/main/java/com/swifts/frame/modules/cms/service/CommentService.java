@@ -3,7 +3,7 @@
  */
 package com.swifts.frame.modules.cms.service;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.service.CrudService;
 import com.swifts.frame.modules.cms.entity.Comment;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import com.swifts.frame.modules.cms.dao.CommentDao;
 @Transactional(readOnly = true)
 public class CommentService extends CrudService<CommentDao, Comment> {
 
-	public Page<Comment> findPage(Page<Comment> page, Comment comment) {
+	public PageInfo<Comment> findPage(int pageNum,int pageSize,  Comment comment) {
 //		DetachedCriteria dc = commentDao.createDetachedCriteria();
 //		if (StringUtils.isNotBlank(comment.getContentId())){
 //			dc.add(Restrictions.eq("contentId", comment.getContentId()));
@@ -33,7 +33,7 @@ public class CommentService extends CrudService<CommentDao, Comment> {
 //		return commentDao.find(page, dc);
 		comment.getSqlMap().put("dsf", dataScopeFilter(comment.getCurrentUser(), "o", "u"));
 		
-		return super.findPage(page, comment);
+		return super.findPage(pageNum,pageSize, comment);
 	}
 	
 	public void delete(Comment entity, Boolean isRe) {

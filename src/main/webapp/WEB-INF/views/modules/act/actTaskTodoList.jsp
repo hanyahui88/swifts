@@ -61,7 +61,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${list}" var="act">
+			<c:forEach items="${page.list}" var="act">
 				<c:set var="task" value="${act.task}" />
 				<c:set var="vars" value="${act.vars}" />
 				<c:set var="procDef" value="${act.procDef}" /><%--
@@ -104,5 +104,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<div class="pagination">${page}</div>
 </body>
 </html>

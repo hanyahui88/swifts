@@ -17,7 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.common.web.BaseController;
 import com.swifts.frame.modules.cms.entity.Guestbook;
@@ -79,13 +79,13 @@ public class FrontSearchController extends BaseController{
 			}
 			// 文章检索
 			if (StringUtils.isBlank(t) || "article".equals(t)){
-				Page<Article> page = articleService.search(new Page<Article>(request, response), qStr, cid, bd, ed);
+				PageInfo<Article> page = articleService.search(super.getPageNum(request),super.getPageSize(request), qStr, cid, bd, ed);
 				page.setMessage("匹配结果，共耗时 " + (System.currentTimeMillis() - start) + "毫秒。");
 				model.addAttribute("page", page);
 			}
 			// 留言检索
 			else if ("guestbook".equals(t)){
-				Page<Guestbook> page = guestbookService.search(new Page<Guestbook>(request, response), qStr, bd, ed);
+				PageInfo<Guestbook> page = guestbookService.search(super.getPageNum(request),super.getPageSize(request),qStr, bd, ed);
 				page.setMessage("匹配结果，共耗时 " + (System.currentTimeMillis() - start) + "毫秒。");
 				model.addAttribute("page", page);
 			}

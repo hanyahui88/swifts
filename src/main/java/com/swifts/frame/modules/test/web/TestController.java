@@ -3,10 +3,7 @@
  */
 package com.swifts.frame.modules.test.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.common.web.BaseController;
 import com.swifts.frame.modules.sys.entity.User;
@@ -22,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 测试Controller
@@ -69,12 +69,12 @@ public class TestController extends BaseController {
 	@RequiresPermissions("test:test:view")
 	@RequestMapping(value = "listData")
 	@ResponseBody
-	public Page<Test> listData(Test test, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public PageInfo<Test> listData(Test test, HttpServletRequest request, HttpServletResponse response, Model model) {
 		User user = UserUtils.getUser();
 		if (!user.isAdmin()){
 			test.setCreateBy(user);
 		}
-        Page<Test> page = testService.findPage(new Page<Test>(request, response), test); 
+        PageInfo<Test> page = testService.findPage(super.getPageNum(request),super.getPageSize(request), test);
         return page;
 	}
 	
@@ -111,7 +111,7 @@ public class TestController extends BaseController {
 	
 	/**
 	 * 删除数据方法
-	 * @param id
+	 * @param test
 	 * @param redirectAttributes
 	 * @return
 	 */

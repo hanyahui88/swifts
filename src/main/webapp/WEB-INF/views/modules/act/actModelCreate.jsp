@@ -25,7 +25,7 @@
 			});
 		});
 		function page(n,s){
-        	location = '${ctx}/act/model/?pageNo='+n+'&pageSize='+s;
+        	location = '${ctx}/act/model/?pageNum='+n+'&pageSize='+s;
         }
 	</script>
 </head>

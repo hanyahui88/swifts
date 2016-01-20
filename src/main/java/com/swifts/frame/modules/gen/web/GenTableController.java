@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.common.web.BaseController;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.modules.gen.service.GenTableService;
 import com.swifts.frame.modules.sys.entity.User;
 import com.swifts.frame.modules.sys.utils.UserUtils;
@@ -54,7 +54,7 @@ public class GenTableController extends BaseController {
 		if (!user.isAdmin()){
 			genTable.setCreateBy(user);
 		}
-        Page<GenTable> page = genTableService.find(new Page<GenTable>(request, response), genTable);
+        PageInfo<GenTable> page = genTableService.find(super.getPageNum(request),super.getPageSize(request), genTable);
         model.addAttribute("page", page);
 		return "modules/gen/genTableList";
 	}

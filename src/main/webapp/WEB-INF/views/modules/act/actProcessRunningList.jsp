@@ -9,7 +9,7 @@
 			top.$.jBox.tip.mess = null;
 		});
 		function page(n,s){
-        	location = '${ctx}/act/process/running/?pageNo='+n+'&pageSize='+s;
+        	location = '${ctx}/act/process/running/?pageNum='+n+'&pageSize='+s;
         }
 		function updateCategory(id, category){
 			$.jBox($("#categoryBox").html(), {title:"设置分类", buttons:{"关闭":true}, submit: function(){}});

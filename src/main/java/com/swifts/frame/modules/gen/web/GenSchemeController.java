@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.common.web.BaseController;
 import com.swifts.frame.modules.sys.entity.User;
@@ -56,7 +56,7 @@ public class GenSchemeController extends BaseController {
 		if (!user.isAdmin()){
 			genScheme.setCreateBy(user);
 		}
-        Page<GenScheme> page = genSchemeService.find(new Page<GenScheme>(request, response), genScheme); 
+        PageInfo<GenScheme> page = genSchemeService.find(super.getPageNum(request),super.getPageSize(request),genScheme);
         model.addAttribute("page", page);
 		
 		return "modules/gen/genSchemeList";

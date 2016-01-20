@@ -3,10 +3,10 @@
  */
 package com.swifts.frame.modules.oa.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.swifts.frame.common.pagehelper.PageInfo;
+import com.swifts.frame.common.web.BaseController;
 import com.swifts.frame.modules.oa.entity.TestAudit;
+import com.swifts.frame.modules.oa.service.TestAuditService;
 import com.swifts.frame.modules.sys.entity.User;
 import com.swifts.frame.modules.sys.utils.UserUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -19,9 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.swifts.frame.common.persistence.Page;
-import com.swifts.frame.common.web.BaseController;
-import com.swifts.frame.modules.oa.service.TestAuditService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 审批Controller
@@ -57,7 +56,7 @@ public class TestAuditController extends BaseController {
 		if (!user.isAdmin()){
 			testAudit.setCreateBy(user);
 		}
-        Page<TestAudit> page = testAuditService.findPage(new Page<TestAudit>(request, response), testAudit); 
+        PageInfo<TestAudit> page = testAuditService.findPage(super.getPageNum(request),super.getPageSize(request), testAudit);
         model.addAttribute("page", page);
 		return "modules/oa/testAuditList";
 	}

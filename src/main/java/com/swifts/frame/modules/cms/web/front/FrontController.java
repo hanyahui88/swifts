@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.swifts.frame.common.config.Global;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.persistence.Page;
 import com.swifts.frame.common.servlet.ValidateCodeServlet;
 import com.swifts.frame.common.utils.StringUtils;
@@ -100,7 +101,7 @@ public class FrontController extends BaseController {
 	 * 内容列表
 	 */
 	@RequestMapping(value = "list-{categoryId}${urlSuffix}")
-	public String list(@PathVariable String categoryId, @RequestParam(required=false, defaultValue="1") Integer pageNo,
+	public String list(@PathVariable String categoryId, @RequestParam(required=false, defaultValue="1") Integer pageNum,
 			@RequestParam(required=false, defaultValue="15") Integer pageSize, Model model) {
 		Category category = categoryService.get(categoryId);
 		if (category==null){
@@ -122,9 +123,8 @@ public class FrontController extends BaseController {
 			model.addAttribute("category", category);
 			model.addAttribute("categoryList", categoryList);
 			// 获取文章内容
-			Page<Article> page = new Page<Article>(1, 1, -1);
 			Article article = new Article(category);
-			page = articleService.findPage(page, article, false);
+			PageInfo<Article> page = articleService.findPage(1,1, article, false);
 			if (page.getList().size()>0){
 				article = page.getList().get(0);
 				article.setArticleData(articleDataService.get(article.getId()));
@@ -153,9 +153,8 @@ public class FrontController extends BaseController {
 				model.addAttribute("categoryList", categoryList);
 				// 获取内容列表
 				if ("article".equals(category.getModule())){
-					Page<Article> page = new Page<Article>(pageNo, pageSize);
 					//System.out.println(page.getPageNo());
-					page = articleService.findPage(page, new Article(category), false);
+					PageInfo<Article> page = articleService.findPage(pageNum,pageSize, new Article(category), false);
 					model.addAttribute("page", page);
 					// 如果第一个子栏目为简介类栏目，则获取该栏目第一篇文章
 					if ("2".equals(category.getShowModes())){
@@ -171,8 +170,7 @@ public class FrontController extends BaseController {
 						return "modules/cms/front/themes/"+site.getTheme()+"/"+getTpl(article);
 					}
 				}else if ("link".equals(category.getModule())){
-					Page<Link> page = new Page<Link>(1, -1);
-					page = linkService.findPage(page, new Link(category), false);
+					PageInfo<Link> page = new PageInfo<>(linkService.findList(new Link(category)));
 					model.addAttribute("page", page);
 				}
 				String view = "/frontList";
@@ -270,12 +268,11 @@ public class FrontController extends BaseController {
 	 */
 	@RequestMapping(value = "comment", method=RequestMethod.GET)
 	public String comment(String theme, Comment comment, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<Comment> page = new Page<Comment>(request, response);
 		Comment c = new Comment();
 		c.setCategory(comment.getCategory());
 		c.setContentId(comment.getContentId());
 		c.setDelFlag(Comment.DEL_FLAG_NORMAL);
-		page = commentService.findPage(page, c);
+		PageInfo<Comment> page = commentService.findPage(super.getPageNum(request),super.getPageSize(request), c);
 		model.addAttribute("page", page);
 		model.addAttribute("comment", comment);
 		return "modules/cms/front/themes/"+theme+"/frontComment";

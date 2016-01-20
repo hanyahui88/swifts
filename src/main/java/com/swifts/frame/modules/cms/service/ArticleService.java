@@ -3,13 +3,15 @@
  */
 package com.swifts.frame.modules.cms.service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.google.common.collect.Lists;
 import com.swifts.frame.common.config.Global;
+import com.swifts.frame.common.pagehelper.PageInfo;
+import com.swifts.frame.common.service.CrudService;
+import com.swifts.frame.common.utils.CacheUtils;
+import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.modules.cms.dao.ArticleDao;
 import com.swifts.frame.modules.cms.dao.ArticleDataDao;
+import com.swifts.frame.modules.cms.dao.CategoryDao;
 import com.swifts.frame.modules.cms.entity.Article;
 import com.swifts.frame.modules.cms.entity.ArticleData;
 import com.swifts.frame.modules.cms.entity.Category;
@@ -20,12 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.collect.Lists;
-import com.swifts.frame.common.persistence.Page;
-import com.swifts.frame.common.service.CrudService;
-import com.swifts.frame.common.utils.CacheUtils;
-import com.swifts.frame.common.utils.StringUtils;
-import com.swifts.frame.modules.cms.dao.CategoryDao;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 文章Service
@@ -42,7 +41,7 @@ public class ArticleService extends CrudService<ArticleDao, Article> {
 	private CategoryDao categoryDao;
 	
 	@Transactional(readOnly = false)
-	public Page<Article> findPage(Page<Article> page, Article article, boolean isDataScopeFilter) {
+	public PageInfo<Article> findPage(int pageNum,int pageSize,  Article article, boolean isDataScopeFilter) {
 		// 更新过期的权重，间隔为“6”个小时
 		Date updateExpiredWeightDate =  (Date)CacheUtils.get("updateExpiredWeightDateByArticle");
 		if (updateExpiredWeightDate == null || (updateExpiredWeightDate != null 
@@ -70,7 +69,7 @@ public class ArticleService extends CrudService<ArticleDao, Article> {
 //		}
 //		return dao.find(page, dc);
 	//	article.getSqlMap().put("dsf", dataScopeFilter(article.getCurrentUser(), "o", "u"));
-		return super.findPage(page, article);
+		return super.findPage(pageNum,pageSize, article);
 		
 	}
 
@@ -160,7 +159,7 @@ public class ArticleService extends CrudService<ArticleDao, Article> {
 	 * 全文检索
 	 */
 	//FIXME 暂不提供检索功能
-	public Page<Article> search(Page<Article> page, String q, String categoryId, String beginDate, String endDate){
+	public PageInfo<Article> search(int pageNum,int pageSize, String q, String categoryId, String beginDate, String endDate){
 		
 		// 设置查询条件
 //		BooleanQuery query = dao.getFullTextQuery(q, "title","keywords","description","articleData.content");
@@ -191,7 +190,7 @@ public class ArticleService extends CrudService<ArticleDao, Article> {
 		//dao.keywordsHighlight(query, page.getList(), 30, "title");
 		//dao.keywordsHighlight(query, page.getList(), 130, "description","articleData.content");
 		
-		return page;
+		return null;
 	}
 	
 }

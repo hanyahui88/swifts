@@ -5,9 +5,10 @@ package com.swifts.frame.common.service;
 
 import java.util.List;
 
+import com.swifts.frame.common.pagehelper.PageHelper;
 import com.swifts.frame.common.persistence.CrudDao;
 import com.swifts.frame.common.persistence.DataEntity;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,13 +55,14 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 	
 	/**
 	 * 查询分页数据
-	 * @param page 分页对象
+	 * @param pageNum 页码
+	 * @param pageSize 页数
 	 * @param entity
 	 * @return
 	 */
-	public Page<T> findPage(Page<T> page, T entity) {
-		entity.setPage(page);
-		page.setList(dao.findList(entity));
+	public PageInfo<T> findPage(int pageNum,int pageSize, T entity) {
+		PageHelper.startPage(pageNum,pageSize,true);
+		PageInfo<T> page=new PageInfo<>(dao.findList(entity));
 		return page;
 	}
 

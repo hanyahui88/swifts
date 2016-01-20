@@ -25,7 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.utils.Collections3;
 import com.swifts.frame.common.web.BaseController;
 import com.swifts.frame.modules.sys.entity.Role;
@@ -169,8 +169,8 @@ public class RoleController extends BaseController {
 		List<Map<String, Object>> mapList = Lists.newArrayList();
 		User user = new User();
 		user.setOffice(new Office(officeId));
-		Page<User> page = systemService.findUser(new Page<User>(1, -1), user);
-		for (User e : page.getList()) {
+		List<User> users = systemService.findUser(user);
+		for (User e : users) {
 			Map<String, Object> map = Maps.newHashMap();
 			map.put("id", e.getId());
 			map.put("pId", 0);
@@ -260,8 +260,8 @@ public class RoleController extends BaseController {
 
 	/**
 	 * 验证角色英文名是否有效
-	 * @param oldName
-	 * @param name
+	 * @param oldEnname
+	 * @param enname
 	 * @return
 	 */
 	@RequiresPermissions("user")

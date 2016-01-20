@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.swifts.frame.common.mapper.JsonMapper;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.common.web.BaseController;
 import com.swifts.frame.modules.cms.entity.Category;
@@ -58,7 +58,7 @@ public class LinkController extends BaseController {
 //		if (!user.isAdmin() && !SecurityUtils.getSubject().isPermitted("cms:link:audit")){
 //			link.setUser(user);
 //		}
-        Page<Link> page = linkService.findPage(new Page<Link>(request, response), link, true); 
+        PageInfo<Link> page = linkService.findPage(super.getPageNum(request),super.getPageSize(request), link, true);
         model.addAttribute("page", page);
 		return "modules/cms/linkList";
 	}

@@ -29,6 +29,23 @@
         <property name="typeAliasesSuperType" value="com.swifts.frame.common.persistence.BaseEntity"/>
         <property name="mapperLocations" value="classpath:/mappings/**/*.xml"/>
 		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+		<property name="plugins">
+			<array>
+				<bean class="com.swifts.frame.common.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							dialect=mysql
+							offsetAsPageNum=false
+							rowBoundsWithCount=false
+							pageSizeZero=true
+							reasonable=false
+							supportMethodsArguments=false
+							returnPageInfo=none
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
     </bean>
     
     <!-- 扫描basePackage下所有以@MyBatisDao注解的接口 -->

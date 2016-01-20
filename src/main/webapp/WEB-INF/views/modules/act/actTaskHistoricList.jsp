@@ -9,7 +9,7 @@
 			
 		});
 		function page(n,s){
-        	location = '${ctx}/act/task/historic/?pageNo='+n+'&pageSize='+s;
+        	location = '${ctx}/act/task/historic/?pageNum='+n+'&pageSize='+s;
         }
 	</script>
 </head>

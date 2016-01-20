@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.modules.cms.entity.Comment;
 
 /**
@@ -49,7 +49,7 @@ public class CommentController extends BaseController {
 	@RequiresPermissions("cms:comment:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(Comment comment, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Page<Comment> page = commentService.findPage(new Page<Comment>(request, response), comment); 
+        PageInfo<Comment> page = commentService.findPage(super.getPageNum(request),super.getPageSize(request), comment);
         model.addAttribute("page", page);
 		return "modules/cms/commentList";
 	}

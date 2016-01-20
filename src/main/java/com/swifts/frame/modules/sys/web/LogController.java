@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.web.BaseController;
 import com.swifts.frame.modules.sys.entity.Log;
 import com.swifts.frame.modules.sys.service.LogService;
@@ -32,7 +32,7 @@ public class LogController extends BaseController {
 	@RequiresPermissions("sys:log:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(Log log, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Page<Log> page = logService.findPage(new Page<Log>(request, response), log); 
+        PageInfo<Log> page = logService.findPage(super.getPageNum(request),super.getPageSize(request),log);
         model.addAttribute("page", page);
 		return "modules/sys/logList";
 	}

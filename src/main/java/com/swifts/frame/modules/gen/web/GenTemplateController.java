@@ -6,7 +6,7 @@ package com.swifts.frame.modules.gen.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.common.web.BaseController;
 import com.swifts.frame.modules.gen.entity.GenTemplate;
@@ -50,7 +50,7 @@ public class GenTemplateController extends BaseController {
 		if (!user.isAdmin()){
 			genTemplate.setCreateBy(user);
 		}
-        Page<GenTemplate> page = genTemplateService.find(new Page<GenTemplate>(request, response), genTemplate);
+        PageInfo<GenTemplate> page = genTemplateService.find(super.getPageNum(request),super.getPageSize(request), genTemplate);
         model.addAttribute("page", page);
 		return "modules/gen/genTemplateList";
 	}

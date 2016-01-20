@@ -34,7 +34,7 @@
 			<div class="pagination">${page}</div>
 			<script type="text/javascript">
 				function page(n,s){
-					location="${ctx}/list-${category.id}${urlSuffix}?pageNo="+n+"&pageSize="+s;
+					location="${ctx}/list-${category.id}${urlSuffix}?pageNum="+n+"&pageSize="+s;
 				}
 			</script>
 		  </c:if>

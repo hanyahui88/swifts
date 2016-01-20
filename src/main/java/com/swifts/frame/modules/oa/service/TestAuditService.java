@@ -5,8 +5,9 @@ package com.swifts.frame.modules.oa.service;
 
 import java.util.Map;
 
+import com.swifts.frame.common.pagehelper.PageHelper;
 import com.swifts.frame.common.utils.StringUtils;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.service.CrudService;
 import com.swifts.frame.modules.act.service.ActTaskService;
 import com.swifts.frame.modules.act.utils.ActUtils;
@@ -34,9 +35,9 @@ public class TestAuditService extends CrudService<TestAuditDao, TestAudit> {
 		return dao.getByProcInsId(procInsId);
 	}
 	
-	public Page<TestAudit> findPage(Page<TestAudit> page, TestAudit testAudit) {
-		testAudit.setPage(page);
-		page.setList(dao.findList(testAudit));
+	public PageInfo<TestAudit> findPage(int pageNum,int pageSize, TestAudit testAudit) {
+		PageHelper.startPage(pageNum,pageSize,true);
+		PageInfo<TestAudit> page=new PageInfo<>(dao.findList(testAudit));
 		return page;
 	}
 	

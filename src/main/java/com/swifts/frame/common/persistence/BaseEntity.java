@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.common.config.Global;
 import com.swifts.frame.common.supcan.annotation.treelist.SupTreeList;
@@ -42,7 +43,7 @@ public abstract class BaseEntity<T> implements Serializable {
 	/**
 	 * 当前实体分页对象
 	 */
-	protected Page<T> page;
+	protected PageInfo<T> page;
 	
 	/**
 	 * 自定义SQL（SQL标识，SQL内容）
@@ -88,14 +89,14 @@ public abstract class BaseEntity<T> implements Serializable {
 
 	@JsonIgnore
 	@XmlTransient
-	public Page<T> getPage() {
+	public PageInfo<T> getPage() {
 		if (page == null){
-			page = new Page<T>();
+			page = new PageInfo<T>();
 		}
 		return page;
 	}
 	
-	public Page<T> setPage(Page<T> page) {
+	public PageInfo<T> setPage(PageInfo<T> page) {
 		this.page = page;
 		return page;
 	}

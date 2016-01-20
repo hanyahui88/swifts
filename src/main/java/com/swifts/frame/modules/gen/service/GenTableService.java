@@ -5,6 +5,7 @@ package com.swifts.frame.modules.gen.service;
 
 import java.util.List;
 
+import com.swifts.frame.common.pagehelper.PageHelper;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.modules.gen.dao.GenTableDao;
 import com.swifts.frame.modules.gen.entity.GenTableColumn;
@@ -13,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.service.BaseService;
 import com.swifts.frame.modules.gen.entity.GenTable;
 import com.swifts.frame.modules.gen.util.GenUtils;
@@ -43,9 +44,9 @@ public class GenTableService extends BaseService {
 		return genTable;
 	}
 	
-	public Page<GenTable> find(Page<GenTable> page, GenTable genTable) {
-		genTable.setPage(page);
-		page.setList(genTableDao.findList(genTable));
+	public PageInfo<GenTable> find(int pageNum,int pageSize,  GenTable genTable) {
+		PageHelper.startPage(pageNum,pageSize,true);
+		PageInfo<GenTable> page=new PageInfo<>(genTableDao.findList(genTable));
 		return page;
 	}
 

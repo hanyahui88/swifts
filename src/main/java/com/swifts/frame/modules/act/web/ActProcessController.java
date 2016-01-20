@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.stream.XMLStreamException;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.common.web.BaseController;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -51,7 +51,7 @@ public class ActProcessController extends BaseController {
 		/*
 		 * 保存两个对象，一个是ProcessDefinition（流程定义），一个是Deployment（流程部署）
 		 */
-	    Page<Object[]> page = actProcessService.processList(new Page<Object[]>(request, response), category);
+	    PageInfo<Object[]> page = actProcessService.processList(super.getPageNum(request),super.getPageSize(request), category);
 		model.addAttribute("page", page);
 		model.addAttribute("category", category);
 		return "modules/act/actProcessList";
@@ -63,7 +63,7 @@ public class ActProcessController extends BaseController {
 	@RequiresPermissions("act:process:edit")
 	@RequestMapping(value = "running")
 	public String runningList(String procInsId, String procDefKey, HttpServletRequest request, HttpServletResponse response, Model model) {
-	    Page<ProcessInstance> page = actProcessService.runningList(new Page<ProcessInstance>(request, response), procInsId, procDefKey);
+	    PageInfo<ProcessInstance> page = actProcessService.runningList(super.getPageNum(request),super.getPageSize(request),procInsId, procDefKey);
 		model.addAttribute("page", page);
 		model.addAttribute("procInsId", procInsId);
 		model.addAttribute("procDefKey", procDefKey);
@@ -72,9 +72,9 @@ public class ActProcessController extends BaseController {
 
 	/**
 	 * 读取资源，通过部署ID
-	 * @param processDefinitionId  流程定义ID
-	 * @param processInstanceId 流程实例ID
-	 * @param resourceType 资源类型(xml|image)
+	 * @param procDefId  流程定义ID
+	 * @param proInsId 流程实例ID
+	 * @param resType 资源类型(xml|image)
 	 * @param response
 	 * @throws Exception
 	 */

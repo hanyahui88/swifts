@@ -3,6 +3,7 @@
  */
 package com.swifts.frame.modules.gen.service;
 
+import com.swifts.frame.common.pagehelper.PageHelper;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.modules.gen.entity.GenTemplate;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.service.BaseService;
 import com.swifts.frame.modules.gen.dao.GenTemplateDao;
 
@@ -30,9 +31,9 @@ public class GenTemplateService extends BaseService {
 		return genTemplateDao.get(id);
 	}
 	
-	public Page<GenTemplate> find(Page<GenTemplate> page, GenTemplate genTemplate) {
-		genTemplate.setPage(page);
-		page.setList(genTemplateDao.findList(genTemplate));
+	public PageInfo<GenTemplate> find(int pageNum,int pageSize,  GenTemplate genTemplate) {
+		PageHelper.startPage(pageNum,pageSize,true);
+		PageInfo<GenTemplate> page=new PageInfo<>(genTemplateDao.findList(genTemplate));
 		return page;
 	}
 	

@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.common.web.BaseController;
 import com.swifts.frame.modules.sys.service.DictService;
@@ -54,7 +54,7 @@ public class DictController extends BaseController {
 	public String list(Dict dict, HttpServletRequest request, HttpServletResponse response, Model model) {
 		List<String> typeList = dictService.findTypeList();
 		model.addAttribute("typeList", typeList);
-        Page<Dict> page = dictService.findPage(new Page<Dict>(request, response), dict); 
+        PageInfo<Dict> page = dictService.findPage(super.getPageNum(request),super.getPageSize(request), dict);
         model.addAttribute("page", page);
 		return "modules/sys/dictList";
 	}

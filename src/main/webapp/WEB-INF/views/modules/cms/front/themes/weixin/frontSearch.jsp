@@ -28,7 +28,7 @@
 </head>
 <body>
 	<form:form id="searchForm" method="get" class="search">
-		<input type="hidden" id="pageNo" name="pageNo" value="${page.pageNo}"/>
+		<input type="hidden" id="pageNo" name="pageNum" value="${page.pageNum}"/>
 		<input type="hidden" id="t" name="t" value="${not empty t?t:'article'}"/>
 		<input type="hidden" id="cid" name="cid" value="${cid}"/>
 		<input type="hidden" id="a" name="a" value="${not empty t?t:'0'}"/>

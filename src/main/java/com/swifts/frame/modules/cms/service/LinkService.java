@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
-import com.swifts.frame.common.persistence.Page;
+import com.swifts.frame.common.pagehelper.PageInfo;
 import com.swifts.frame.common.service.CrudService;
 import com.swifts.frame.common.utils.CacheUtils;
 import com.swifts.frame.common.utils.StringUtils;
@@ -28,7 +28,7 @@ import com.swifts.frame.modules.cms.entity.Link;
 public class LinkService extends CrudService<LinkDao, Link> {
 
 	@Transactional(readOnly = false)
-	public Page<Link> findPage(Page<Link> page, Link link, boolean isDataScopeFilter) {
+	public PageInfo<Link> findPage(int pageNum,int pageSize, Link link, boolean isDataScopeFilter) {
 		// 更新过期的权重，间隔为“6”个小时
 		Date updateExpiredWeightDate =  (Date)CacheUtils.get("updateExpiredWeightDateByLink");
 		if (updateExpiredWeightDate == null || (updateExpiredWeightDate != null 
@@ -38,7 +38,7 @@ public class LinkService extends CrudService<LinkDao, Link> {
 		}
 		link.getSqlMap().put("dsf", dataScopeFilter(link.getCurrentUser(), "o", "u"));
 		
-		return super.findPage(page, link);
+		return super.findPage(pageNum,pageSize, link);
 	}
 	
 	@Transactional(readOnly = false)

@@ -104,7 +104,7 @@
 		<include refid="cmsCategoryDaoJoins"/>
 		<where>
 			a.del_flag = #{delFlag}
-			<if test=" site.id != null and site.id != ''">
+			<if test="site.id != null and site.id != ''">
 				AND a.site_id  = #{site.id}
 			</if>
 			<if test="parent.id != null and parent.id != ''">

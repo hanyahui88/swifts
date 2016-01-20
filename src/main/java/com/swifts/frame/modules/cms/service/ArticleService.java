@@ -190,7 +190,7 @@ public class ArticleService extends CrudService<ArticleDao, Article> {
 		//dao.keywordsHighlight(query, page.getList(), 30, "title");
 		//dao.keywordsHighlight(query, page.getList(), 130, "description","articleData.content");
 		
-		return null;
+		return new PageInfo<Article>();
 	}
 	
 }

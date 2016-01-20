@@ -96,7 +96,7 @@ public class ArticleController extends BaseController {
 //			Category category = categoryService.get(article.getCategory().getId());
 //		}
         model.addAttribute("contentViewList",getTplContent());
-        model.addAttribute("article_DEFAULT_TEMPLATE",Article.DEFAULT_TEMPLATE)情况下你只需要执行这一个命令。;
+        model.addAttribute("article_DEFAULT_TEMPLATE",Article.DEFAULT_TEMPLATE);
 		model.addAttribute("article", article);
 		CmsUtils.addViewConfigAttribute(model, article.getCategory());
 		return "modules/cms/articleForm";

@@ -4,6 +4,7 @@
 package com.swifts.frame.common.persistence;
 
 import java.util.Date;
+import java.util.List;
 
 import com.swifts.frame.modules.sys.utils.UserUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +30,12 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	protected User updateBy;	// 更新者
 	protected Date updateDate;	// 更新日期
 	protected String delFlag; 	// 删除标记（0：正常；1：删除；2：审核）
-	
+
+	protected List<String> extendField1;
+	protected String extendField2;
+	protected String extendField3;
+	protected Date extendField4;
+
 	public DataEntity() {
 		super();
 		this.delFlag = DEL_FLAG_NORMAL;
@@ -123,5 +129,36 @@ public abstract class DataEntity<T> extends BaseEntity<T> {
 	public void setDelFlag(String delFlag) {
 		this.delFlag = delFlag;
 	}
+	@JsonIgnore
+	public List<String> getExtendField1() {
+		return extendField1;
+	}
 
+	public void setExtendField1(List<String> extendField1) {
+		this.extendField1 = extendField1;
+	}
+	@JsonIgnore
+	public String getExtendField2() {
+		return extendField2;
+	}
+
+	public void setExtendField2(String extendField2) {
+		this.extendField2 = extendField2;
+	}
+	@JsonIgnore
+	public String getExtendField3() {
+		return extendField3;
+	}
+
+	public void setExtendField3(String extendField3) {
+		this.extendField3 = extendField3;
+	}
+	@JsonIgnore
+	public Date getExtendField4() {
+		return extendField4;
+	}
+
+	public void setExtendField4(Date extendField4) {
+		this.extendField4 = extendField4;
+	}
 }

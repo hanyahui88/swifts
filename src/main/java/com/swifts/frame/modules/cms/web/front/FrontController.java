@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.swifts.frame.common.config.Global;
 import com.swifts.frame.common.pagehelper.PageInfo;
-import com.swifts.frame.common.persistence.Page;
 import com.swifts.frame.common.servlet.ValidateCodeServlet;
 import com.swifts.frame.common.utils.StringUtils;
 import com.swifts.frame.common.web.BaseController;

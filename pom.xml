@@ -42,7 +42,7 @@
 		<poi.version>3.9</poi.version>
 		<freemarker.version>2.3.20</freemarker.version>
 		<spring-data-redis>1.6.2.RELEASE</spring-data-redis>
-		<bitwalker.version>1.13</bitwalker.version>
+		<bitwalker.version>1.20</bitwalker.version>
 		<httpcomponents.version>4.5.1</httpcomponents.version>
 		<!--<spark.version>1.6.0</spark.version>-->
 		<!-- jdbc driver setting -->
@@ -85,7 +85,11 @@
 	
 	<!-- 依赖项定义 -->
 	<dependencies>
-	
+		<dependency>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>1.9.7</version>
+		</dependency>
 		<!-- SPRING begin -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -552,11 +556,6 @@
 		</dependency>
 		
 		<!-- 中文分词 -->
-		<dependency>
-			<groupId>org.wltea</groupId>
-			<artifactId>analyzer</artifactId>
-			<version>2012_u6</version>
-		</dependency>
 		<!-- GENERAL UTILS end -->
 		
 		<!-- CKFinder begin -->
@@ -564,26 +563,6 @@
 			<groupId>net.coobird</groupId>
 			<artifactId>thumbnailator</artifactId>
 			<version>0.4.2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ckfinder</groupId>
-			<artifactId>apache-ant-zip</artifactId>
-			<version>2.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ckfinder</groupId>
-			<artifactId>ckfinder</artifactId>
-			<version>2.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ckfinder</groupId>
-			<artifactId>ckfinderplugin-fileeditor</artifactId>
-			<version>2.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ckfinder</groupId>
-			<artifactId>ckfinderplugin-imageresize</artifactId>
-			<version>2.3</version>
 		</dependency>
 		<!-- CKFinder end -->
 		
@@ -602,7 +581,7 @@
 		
 		<!-- User Agent -->
 		<dependency>
-			<groupId>bitwalker</groupId>
+			<groupId>eu.bitwalker</groupId>
 			<artifactId>UserAgentUtils</artifactId>
 			<version>${bitwalker.version}</version>
 		</dependency>
@@ -702,60 +681,8 @@
 				</executions>
 			</plugin>-->
 			
-			<!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<encoding>${project.build.sourceEncoding}</encoding>
-				</configuration>
-			</plugin>
-			<!-- war 打包插件, 设定war包名称不带版本号 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<packagingExcludes>
-						WEB-INF/classes/org/apache/ibatis/**,
-						WEB-INF/classes/org/mybatis/spring/**
-					</packagingExcludes>
-					<warSourceExcludes>
-						static/bootstrap/2.3.1/docs/**,
-						static/ckeditor/_samples/**,
-						static/ckeditor/_source/**,
-						static/ckfinder/_samples/**,
-						static/ckfinder/help/**,
-						static/compressor*/**,
-						static/jquery-jbox/2.3/docs/**,
-						static/jquery-jbox/2.3/Skins2/**,
-						static/jquery-validation/1.11.0/demo/**,
-						static/jquery-ztree/3.5.12/demo/**,
-						static/My97DatePicker/docs/**,
-						static/supcan/doc/**,
-						static/SuperSlide/demo/**,
-						static/treeTable/demo/**<!-- , -->
-						<!-- userfiles/** --><!-- ,/**/*.jsp -->,
-						test/**
-					</warSourceExcludes>
-					<webappDirectory>${project.build.directory}/${project.artifactId}</webappDirectory><!-- 
-					<webXml>${project.basedir}/target/jspweb.xml</webXml> -->
-					<warName>${project.artifactId}</warName>
-				</configuration>
-			</plugin>
-			
-			<!-- tomcat6插件 -->
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat6-maven-plugin</artifactId>
-				<version>${tomcat.version}</version> 
-				<configuration>
-					<port>${webserver.port}</port>
-					<path>/${project.artifactId}</path>
-					<uriEncoding>${project.build.sourceEncoding}</uriEncoding>
-				</configuration>
-			</plugin>
+
+
 			
 			<!-- tomcat7插件 -->
 			<plugin>
@@ -769,28 +696,7 @@
 				</configuration>
 			</plugin>
 			
-			<!-- jetty插件 -->
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>${jetty.version}</version>
-				<configuration>
-					<connectors>
-						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>${webserver.port}</port>
-						</connector>
-					</connectors>
-					<webAppConfig>
-						<contextPath>/${project.artifactId}</contextPath>
-					</webAppConfig>
-					<systemProperties>  
-						<systemProperty>
-							<name>org.mortbay.util.URI.charset</name>
-							<value>${project.build.sourceEncoding}</value>
-						</systemProperty>
-					</systemProperties>
-				</configuration>
-			</plugin>
+
 			
 			<!-- resource插件 -->
 			<plugin>

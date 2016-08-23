@@ -11,7 +11,6 @@ import com.swifts.frame.common.utils.PropertiesLoader;
 import com.swifts.frame.common.utils.StringUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 
-import com.ckfinder.connector.ServletContextFactory;
 import com.google.common.collect.Maps;
 
 /**
@@ -137,7 +136,7 @@ public class Global {
 		String dir = getConfig("userfiles.basedir");
 		if (StringUtils.isBlank(dir)){
 			try {
-				dir = ServletContextFactory.getServletContext().getRealPath("/");
+//				dir = ServletContextFactory.getServletContext().getRealPath("/");
 			} catch (Exception e) {
 				return "";
 			}
